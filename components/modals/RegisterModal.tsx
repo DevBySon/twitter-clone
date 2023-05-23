@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useCallback, useState } from "react";
 import Input from "../Input";
@@ -14,11 +14,13 @@ const RegisterModal = () => {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    
     const onToggle = useCallback(() => {
-        if (isLoading) {return}
+        if (isLoading) { return }
         registerModal.onClose();
         loginModal.onOpen();
-    },[isLoading, registerModal, loginModal])
+    }, [isLoading, registerModal, loginModal])
+    
     const onSubmit = useCallback(() => {
         try {
             setIsLoading(true);
@@ -29,6 +31,7 @@ const RegisterModal = () => {
             setIsLoading(false);
         }
     }, [registerModal])
+
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Input placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email} disabled={isLoading} />
@@ -39,22 +42,23 @@ const RegisterModal = () => {
     )
     const footerContent = (
         <div className="text-neutral-400 text-center mt-4">
-            <p>Alreary have an account?</p>
-            <span className="text-white cursor-pointer hover:underline" onClick={onToggle}>
-                Sign in
-            </span>
+            <p>Alreary have an account?
+                <span className="text-white cursor-pointer hover:underline" onClick={onToggle}>
+                    Sign in
+                </span>
+            </p>
         </div>
     )
     return (
-        <Modal 
-        disabled={isLoading} 
-        isOpen={registerModal.isOpen} 
-        title="Create an account" 
-        actionLabel="Register" 
-        onClose={registerModal.onClose} 
-        onSubmit={onSubmit} 
-        body={bodyContent} 
-        footer={footerContent}/>
+        <Modal
+            disabled={isLoading}
+            isOpen={registerModal.isOpen}
+            title="Create an account"
+            actionLabel="Register"
+            onClose={() => registerModal.onClose()}
+            onSubmit={onSubmit}
+            body={bodyContent}
+            footer={footerContent} />
     )
 }
 
